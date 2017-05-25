@@ -1,0 +1,64 @@
+<!doctype html>
+<html ng-app="app">
+    <head>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<!--Google OAUTH-->
+	    <meta name="google-signin-scope" content="profile email">
+		<meta name="google-signin-client_id" content="480325188666-pfrq1d9nm9ddr6mfes3j99hogpf6jtnv.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>        
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-resource.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
+        <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-sanitize.min.js"></script>
+		<script src="angular-google-auth2.js"></script>
+		<script src="html2canvas.js"></script>
+		<script src="jquery.hotkeys.js"></script>
+		<script src="oauth.js" defer ></script>
+		<script src="index.js" defer ></script>
+		
+    </head>
+    <body "height:100%; overflow:hidden">
+        <div style="width:99%; height:50%" id="oauth" >
+            <div style="width:50%;height=50%;margin:50%">
+                <a href="#" onclick="signOut();">Выйти</a>
+                <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"  ></div>
+            </div>
+        </div>
+     
+			
+			<div ng-controller="UserCommentsController as commentsCtrl" class="container" id="mainData" hidden>
+            <div class="shower">  
+			<div class="panel panel-default" ng-repeat="cmt in commentsCtrl.userComments">
+                <div class="panel-heading">
+                    <strong>myusername</strong> <span class="text-muted">Comments</span>
+                </div>
+                <div class="panel-body"  ng-bind-html="cmt.text">
+                </div><!-- /panel-body -->
+            </div>            
+            <script type="text/ng-template" id="modalContent.html">
+                <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Input Comment Text</h3>
+                </div>
+                <div class="modal-body" id="modal-body">
+                <textarea id="message-text" ng-model="commentsCtrl.cmtText" style="margin: 0px; width: 569px; height: 116px;"></textarea>
+                </div>
+                <div class="modal-footer ng-scope">
+                <button class="btn btn-primary" type="button" ng-click="commentsCtrl.sendComment()">Send</button>
+                <button class="btn btn-warning" type="button" ng-click="commentsCtrl.cancel()">Cancel</button>
+                </div>
+            </script>
+            <button type="button" class="btn btn-default" ng-click="commentsCtrl.openModal()">Add Comment</button>
+            <div class="modal-parent">
+            </div>
+			</div>
+        </div>
+
+         </body>
+</html>
