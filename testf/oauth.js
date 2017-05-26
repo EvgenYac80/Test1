@@ -1,15 +1,25 @@
-            var id, name,email,id_token;
-		    function onSignIn(googleUser) {
+              function onSignIn(googleUser) {
 				
 				var  profile = googleUser.getBasicProfile();
-				id=profile.getId(); 
-				name=profile.getName();
+				var id=profile.getId(); 
+				var name=profile.getName();
 				console.log("Image URL: " + profile.getImageUrl());
-				email=profile.getEmail();
+				var email=profile.getEmail();
 
 				// The ID token you need to pass to your backend:
-				id_token = googleUser.getAuthResponse().id_token;
+				var id_token = googleUser.getAuthResponse().id_token;
 				console.log("ID Token: " + id_token);
+				var obj=JSON.stringify({"id":id,"name":name,"email":email,"id_token":id_token});
+				console.log(obj);
+				$.ajax(
+				{
+				type:"POST",	
+				url:"/new",
+				contentType:"application/json",
+				data:obj,
+				success: function(){
+					console.log('uva');
+				}});
 				$("#oauth").hide();
 				$("#mainData").show();
 				

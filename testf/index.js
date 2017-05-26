@@ -1,16 +1,30 @@
 angular.module('app', ['ngResource', 'ngAnimate', 'ngSanitize', 'ui.bootstrap'])
-        
+
+		
         .controller("UserCommentsController", function (Comments, $uibModal, $log, $document, $scope, $window, $http) {
 	   
 			
 	         var _self = this;
-			 
-			 	
-      	   
+			 $scope.myusername='NameUser';
+					
+      	    $scope.repeatQ=function(){
+				Comments.query().$promise.then(function (result) {
+				$scope.myusername=result[0].name;
+				_self.userComments = result.slice(1);
+				$scope.showB=true;
+				},
+				function(err){$scope.showB=false;
+				});
+			
+			};
 				
             Comments.query().$promise.then(function (result) {
-                _self.userComments = result;
-            });
+				$scope.myusername=result[0].name;
+				_self.userComments = result.slice(1);
+				$scope.showB=true;
+				},
+				function(err){$scope.showB=false;}				
+			) ;
 
             this.animationsEnabled = true;
 
@@ -34,7 +48,8 @@ angular.module('app', ['ngResource', 'ngAnimate', 'ngSanitize', 'ui.bootstrap'])
                     $log.info('$ctrl.cmtText >>> ' + _self.cmtText);
                     Comments.save({text: _self.cmtText}).$promise.then(function (result) {
                         Comments.query().$promise.then(function (result) {
-                            _self.userComments = result;
+                            _self.userComments = result.slice(1);
+							$scope.myusername=result[0].name;
                         });
                     });
                 }, function () {

@@ -20,7 +20,7 @@
 		<script src="angular-google-auth2.js"></script>
 		<script src="html2canvas.js"></script>
 		<script src="jquery.hotkeys.js"></script>
-		<script src="oauth.js" defer ></script>
+		<script src="oauth.js" defer ></script> 
 		<script src="index.js" defer ></script>
 		
     </head>
@@ -31,15 +31,18 @@
                 <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"  ></div>
             </div>
         </div>
-     
+        
 			
 			<div ng-controller="UserCommentsController as commentsCtrl" class="container" id="mainData" hidden>
-            <div class="shower">  
+			<div id="but" style="margin-left:auto; margin-right:auto" ng-hide="showB">
+			<button type="button"  ng-click="repeatQ()" > Повторите запрос </button>
+			</div>
+            <div class="shower" ng-show="showB">  
 			<div class="panel panel-default" ng-repeat="cmt in commentsCtrl.userComments">
                 <div class="panel-heading">
-                    <strong>myusername</strong> <span class="text-muted">Comments</span>
+                    <strong>{{myusername}}</strong> <span class="text-muted">Comments</span>
                 </div>
-                <div class="panel-body"  ng-bind-html="cmt.text">
+                <div class="panel-body" style="overflow-x:scroll" ng-bind-html="cmt.text">
                 </div><!-- /panel-body -->
             </div>            
             <script type="text/ng-template" id="modalContent.html">
